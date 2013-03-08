@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 #
 
-if ARGV.length != 2
-  STDERR.puts 'Usage: ./txt2bf.rb <chunk_size:int> <logo:text>'
+if ARGV.length != 3
+  STDERR.puts 'Usage: ./txt2bf.rb <chunk_size:int> <font:str> <logo:str>'
   exit(2)
 end
 
 CHUNK = ARGV.shift.to_i
-LOGO = `figlet -w 80 -c -f block #{ARGV.shift} | sed '/^ *$/d'`
+LOGO = `figlet -w 80 -c -f #{ARGV.shift} #{ARGV.shift} | sed '/^ *$/d'`
 NOPS = %w{ <> >< +- -+ }
 
 code = String.new
