@@ -4,7 +4,7 @@ import strings
 import strings.textscanner
 
 const (
-	version            = 'v0.0.1'
+	version            = 'v0.1.1'
 	def_build_buf_size = 4096
 	bf_nops            = ['<>', '><', '+-', '-+']
 )
@@ -12,7 +12,7 @@ const (
 fn main() {
 	mut fp := flag.new_flag_parser(os.args)
 	fp.application('txt2rb')
-	fp.description('The text rarefication engine!')
+	fp.description('The text rarefication engine!\nReads a line from STDIN.')
 	fp.version(version)
 	fp.limit_free_args(0, 0)
 	fp.skip_executable()
@@ -26,7 +26,6 @@ fn main() {
 		return
 	}
 
-	print('Write your message: ')
 	msg := os.get_line()
 
 	mut msg_scn := textscanner.new(msg)
