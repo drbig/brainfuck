@@ -28,10 +28,11 @@ fn main() {
 	msg := os.get_line()
 
 	mut msg_scn := textscanner.new(msg)
-	// mut bldr_out := strings.new_builder(def_build_buf_size)
+	mut bldr_out := strings.new_builder(def_build_buf_size)
 	mut bldr_chunk := strings.new_builder(chunk_size)
 	mut done := false
 	for {
+		mut chk_len := 0
 		for _ in 0 .. chunk_size {
 			c := msg_scn.next()
 			if c == -1 {
@@ -39,12 +40,29 @@ fn main() {
 				break
 			}
 			bldr_chunk.write_b(byte(c))
+			chk_len += 1
 		}
 
-		println('chunk: $bldr_chunk')
+		bldr_out.write_string('++++++++++[')
+		for i := 0; i < chk_len; i++ {
+			bldr_out.write_b(`>`)
+			bldr_out.write_string(strings.repeat(`+`, bldr_chunk.byte_at(i) / 10))
+		}
+		bldr_out.write_string(strings.repeat(`<`, chk_len))
+		bldr_out.write_string('-]')
+
+		for i := 0; i < chk_len; i++ {
+			bldr_out.write_b(`>`)
+			bldr_out.write_string(strings.repeat(`+`, bldr_chunk.byte_at(i) % 10))
+			bldr_out.write_b(`.`)
+		}
+		bldr_out.write_b(`>`)
+
 		bldr_chunk.cut_to(0)
 		if done {
 			break
 		}
 	}
+
+	println(bldr_out.str())
 }
