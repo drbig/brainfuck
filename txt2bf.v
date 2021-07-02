@@ -6,6 +6,7 @@ import strings.textscanner
 const (
 	version            = 'v0.0.1'
 	def_build_buf_size = 4096
+	bf_nops            = ['<>', '><', '+-', '-+']
 )
 
 fn main() {
@@ -17,6 +18,7 @@ fn main() {
 	fp.skip_executable()
 
 	chunk_size := fp.int('chunk_size', 0, 16, 'Text chunk size')
+	width := fp.int('width', 0, 80, 'Output block width')
 
 	fp.finalize() or {
 		eprintln(err)
@@ -62,5 +64,18 @@ fn main() {
 		}
 	}
 
-	println(bldr_out.str())
+	pad_len := width - (bldr_out.len % width)
+	parity := pad_len % 2
+	lines := (bldr_out.len + pad_len) / 80
+	for i in 0 .. ((pad_len - parity) / 2) {
+		bldr_out.write_string(bf_nops[i % bf_nops.len])
+	}
+	if parity > 0 {
+		bldr_out.write_b(`>`)
+	}
+
+	out_str := bldr_out.str()
+	for i := 0; i < lines; i++ {
+		println(out_str[(i * width)..((i + 1) * width)])
+	}
 }
