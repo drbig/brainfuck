@@ -4,9 +4,8 @@ import strings
 import strings.textscanner
 
 const (
-	version            = 'v0.1.2'
-	def_build_buf_size = 4096
-	bf_nops            = ['<>', '><', '+-', '-+']
+	version = 'v0.2.0'
+	bf_nops = ['<>', '><', '+-', '-+']
 )
 
 fn main() {
@@ -17,6 +16,7 @@ fn main() {
 	fp.limit_free_args(0, 0)
 	fp.skip_executable()
 
+	buf_size := fp.int('buf_size', 0, 4096, 'Output build buffer initial size')
 	chunk_size := fp.int('chunk_size', 0, 16, 'Text chunk size')
 	width := fp.int('width', 0, 80, 'Output block width')
 
@@ -29,7 +29,7 @@ fn main() {
 	msg := os.get_line()
 
 	mut msg_scn := textscanner.new(msg)
-	mut bldr_out := strings.new_builder(def_build_buf_size)
+	mut bldr_out := strings.new_builder(buf_size)
 	mut bldr_chunk := strings.new_builder(chunk_size)
 	mut done := false
 	for {
