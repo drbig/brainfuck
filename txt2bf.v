@@ -4,7 +4,7 @@ import strings
 import strings.textscanner
 
 const (
-	version            = 'v0.1.1'
+	version            = 'v0.1.2'
 	def_build_buf_size = 4096
 	bf_nops            = ['<>', '><', '+-', '-+']
 )
@@ -65,7 +65,7 @@ fn main() {
 
 	pad_len := width - (bldr_out.len % width)
 	parity := pad_len % 2
-	lines := (bldr_out.len + pad_len) / 80
+	lines := (bldr_out.len + pad_len) / width
 	for i in 0 .. ((pad_len - parity) / 2) {
 		bldr_out.write_string(bf_nops[i % bf_nops.len])
 	}
