@@ -42,6 +42,13 @@ Convert a chunk of text to a stylish [Brainfuck](http://en.wikipedia.org/wiki/Br
 ++>+++++>+++++++++>++++++++++>++++>+++++++++++>+++++++++<<<><<<<<<-]>.>++++++.>.>++++++++.>++.>++++++.>++++.>++++++++.>>
 ```
 
+### 2021 out of the blue update
+
+Came across a language that tickles me in all the right ways so for fun first
+project I implemented the core functionality in [Vlang](https://vlang.io/).
+It's blazing fast! Also in the spirit of "static binary, no deps, run anywhere!"
+I'm consciously leaving out all the `figlet` and logo-placing stuff.
+
 ## How to use it
 
 Without any arguments you'll get some help:
